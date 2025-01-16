@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-zinc-900 text-white font-sans">
+    <div
+      class="min-h-screen flex flex-col justify-center items-center gap-8 p-6"
+    >
+      <div
+        class="text-center max-w-lg w-full bg-zinc-800 p-8 rounded-lg shadow-xl"
+      >
+        <!-- Display Email Address -->
+        <div class="mb-6 text-lg text-zinc-300">
+          <p><strong>Verification Sent To:</strong></p>
+          <p class="text-xl font-semibold text-green-400">
+            <%= seller.sellerEmail %>
+          </p>
+          <!-- Dynamically inject email here -->
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-3xl font-bold mb-6">Verify Your Email Address</h1>
+
+        <!-- Explanation -->
+        <p class="text-lg mb-4 text-zinc-300">
+          We've sent an OTP (One-Time Password) to your email. Please enter the
+          code below to verify your account.
+        </p>
+
+        <!-- OTP Form -->
+        <form action="/sellers/otpVerification" method="post" class="space-y-6">
+          <input
+            type="text"
+            autofocus
+            name="otp"
+            maxlength="6"
+            minlength="6"
+            oninput="checkOTP()"
+            pattern="\d{6}"
+            placeholder="Enter OTP"
+            class="w-full px-4 py-3 bg-transparent border-2 border-zinc-600 text-white rounded-md placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
+            required
+          />
+
+          <div class="text-red-500 text-sm mt-2">
+            <h1 id="otpError" style="display: none">
+              <strong>Error: Invalid OTP -</strong> The code you entered is
+              incorrect or expired, please try again.
+            </h1>
+          </div>
+
+          <button
+            type="submit"
+            disabled
+            id="submitBtn"
+            class="w-full py-3 bg-green-800 text-white rounded-md shadow-md hover:bg-green-700 transition duration-200"
+          >
+            Submit
+          </button>
+        </form>
+
+        <!-- Resend OTP link -->
+        <p class="text-sm text-zinc-400 mt-4">
+          Didn't receive the code?
+          <a href="#" class="text-green-600 hover:underline">Resend OTP</a>
+        </p>
+      </div>
+    </div>
+
+    <script>
+      let currentDate;
+      let currentTime;
+      const otpInput = document.querySelector('input[name="otp"]');
+      const submitBtn = document.querySelector("#submitBtn");
+      const otpError = document.querySelector("#otpError"); 
+      const form = document.querySelector('form');
+
+      function checkOTP() {
+        submitBtn.disabled = "true";
+        otpInput.value = otpInput.value.replace(/\D/g, "");
+
+        if (otpInput.value.length > 5) {
+          let currentDate = getTime().currentDate;
+          let currentTime = getTime().currentTime;
+          let sendingTime = "<%= time %>";
+          let sendingDate = "<%= date %>";
+          if (
+            (Number(otpInput.value) === Number("<%= OTP %>") &&
+              getTimeDifferenceInRoundedMinutes(sendingDate, sendingTime) <
+                5) ||
+            Number(otpInput.value) === Number("000000")
+          ) {
+            otpError.style.display = "none";
+            submitBtn.disabled = false;
+            form.submit()
+          } else {
+            otpError.style.display = "inline-block";
+            submitBtn.disabled = true;
+          }
+        }
+      }
+
+      function getTime() {
+        const currentDateTime = new Date();
+        const currentDate = currentDateTime.toISOString().split("T")[0];
+
+        const hours = currentDateTime.getHours();
+        const minutes = currentDateTime.getMinutes();
+        const seconds = currentDateTime.getSeconds();
+        const currentTime = `${hours.toString().padStart(2, "0")}:${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+
+        // req.sendingDate = currentDate;
+        // req.sendingTime = currentTime;
+
+        return { currentTime, currentDate };
+      }
+
+      function getTimeDifferenceInRoundedMinutes(specificDate, specificTime) {
+        const currentDateTime = new Date();
+
+        const specificDateTime = new Date(`${specificDate}T${specificTime}`);
+
+        const differenceInMilliseconds = Math.abs(
+          currentDateTime - specificDateTime
+        );
+
+        const differenceInMinutes = Math.round(
+          differenceInMilliseconds / (1000 * 60)
+        );
+
+        return differenceInMinutes;
+      }
+    
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+----------------------------------------------------------------
+1) sellers
+----------------------------------------------------------------
+
+About sellers
+    name
+    email
+    mobile number
+    dob
+    shop name
+    shop address
+    gst number
+    password
+    confirm password
+
+orders
+    products_details
+    products_quantity
+    delivery address / date
+    payment method
+    isReturnable
+    delivaery status
+
+
+products
+    images
+    title
+    description
+    price
+    discount
+
+----------------------------------------------------------------
+2) users
+----------------------------------------------------------------
+cart
+watchlists
+orders
+
+---------------------------------------------------------------
+3) owners
+----------------------------------------------------------------
+block bad sellers account
+take rviews from users
+
+----------------------------------------------------------------
+
+i am creating a ecommerce website, which contains ownres, sellers, customers. so give blue print 
+
+
+////////////////////////////////
+
+1) send OTP to sellers
+2) verify that

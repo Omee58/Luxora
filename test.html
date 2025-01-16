@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style></style>
+  </head>
+
+  <body class="bg-zinc-900 text-white font-sans">
+    <img
+      src="C:/Users/omee0/OneDrive/Desktop/Node JS/Luxora/public/logo/logo.png"
+      alt="Luxora"
+      style="max-width: 150px"
+    />
+
+    <div
+      class="min-h-screen flex flex-col justify-center items-center gap-8 p-6"
+    >
+      <div
+        class="text-center max-w-lg w-full bg-zinc-800 p-8 rounded-lg shadow-xl"
+      >
+        <!-- Display Email Address -->
+        <div class="mb-6 text-lg text-zinc-300">
+          <p><strong>Verification Sent To:</strong></p>
+          <p class="text-xl font-semibold text-green-400">
+            <%= seller.sellerEmail %>
+          </p>
+          <!-- Dynamically inject email here -->
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-3xl font-bold mb-6">Verify Your Email Address</h1>
+
+        <!-- Explanation -->
+        <p class="text-lg mb-4 text-zinc-300">
+          We've sent an OTP (One-Time Password) to your email. Please enter the
+          code below to verify your account.
+        </p>
+
+        <!-- OTP Form -->
+        <form action="/" method="post" class="space-y-6">
+          <input
+            type="text"
+            name="otp"
+            maxlength="6"
+            minlength="6"
+            oninput="checkOTP()"
+            pattern="\d{6}"
+            placeholder="Enter OTP"
+            class="w-full px-4 py-3 bg-transparent border-2 border-zinc-600 text-white rounded-md placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-200"
+            required
+          />
+
+          <h1 id="otpError" style="display: none">Invalid OTP</h1>
+
+          <button
+            id="submitBtn"
+            disabled
+            type="submit"
+            class="w-full py-3 bg-green-800 text-white rounded-md shadow-md hover:bg-green-700 transition duration-200"
+          >
+            submit
+          </button>
+        </form>
+
+        <!-- Resend OTP link -->
+      </div>
+    </div>
+
+    <script>
+      function checkOTP() {
+        const otpInput = document.querySelector('input[name="otp"]');
+        const submitBtn = document.querySelector("#submitBtn");
+        const otpError = document.querySelector("#otpError");
+        submitBtn.disabled = "true";
+        otpInput.value = otpInput.value.replace(/\D/g, "");
+
+        if (otpInput.value.length > 5) {
+          if (Number(otpInput.value) === 580700) {
+            otpError.style.display = "none";
+            console.log("OTP is right ");
+            submitBtn.disabled = false;
+          } else {
+            otpError.style.display = "block";
+            submitBtn.disabled = true;
+          }
+        }
+      }
+      function getTimeDifferenceInRoundedMinutes(specificDate, specificTime) {
+        const currentDateTime = new Date();
+
+        const specificDateTime = new Date(`${specificDate}T${specificTime}`);
+
+        const differenceInMilliseconds = Math.abs(
+          currentDateTime - specificDateTime
+        );
+
+        const differenceInMinutes = Math.round(
+          differenceInMilliseconds / (1000 * 60)
+        );
+
+        return differenceInMinutes;
+      }
+
+      // Example usage:
+      // // Current date and time is automatically generated
+      // const specificDate = "2025-01-15"; // Example specific date
+      // const specificTime = "13:00:00"; // Example specific time
+
+      // Call the function and log the result
+      console.log(
+        getTimeDifferenceInRoundedMinutes(specificDate, specificTime)
+      );
+    </script>
+  </body>
+</html>

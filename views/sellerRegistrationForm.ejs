@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="sellerviewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seller Registration Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white p-6 flex justify-center items-center min-h-screen">
+
+
+  <div class="bg-black p-8 rounded-2xl shadow-xl w-full max-w-lg border-4 border-white">
+    <h2 class="text-3xl font-bold text-center mb-6 text-white">
+      Become seller ?
+    </h2>
+
+    <form action="/sellers/sellerRegistrationForm" method="POST">
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
+        <input type="text" id="name" name="sellerName" required placeholder="Omee Balar"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-400">Email</label>
+        <input type="email" id="email" name="sellerEmail" required placeholder="example@domain.com"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+      </div>
+
+      <div class="mb-4">
+        <label for="mobile" class="block text-sm font-medium text-gray-400">Mobile Number</label>
+        <input type="tel" minlength="10" maxlength="10" pattern="^\d{10}$" id="mobile"  name="sellerMobileNumber"
+          placeholder="+91 123 456 7890" oninput="this.value = this.value.replace(/\D/g, '')"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+      </div>
+
+      <div class="mb-4">
+        <label for="dob" class="block text-sm font-medium text-gray-400">Date of Birth</label>
+        <input type="date" id="dob"  name="sellerDob"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+      </div>
+
+      <div class="mb-4">
+        <label for="shopName" class="block text-sm font-medium text-gray-400">Shop Name</label>
+        <input type="text" id="shopName" name="shopName"  placeholder="Luxora enterprise"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+      </div>
+
+      <div class="mb-4">
+        <label for="shopAddress" class="block text-sm font-medium text-gray-400">Shop Address</label>
+        <textarea id="shopAddress" name="shopAddress"  placeholder="Enter your shop address"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500"></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="gstNumber" class="block text-sm font-medium text-gray-400">GST Number</label>
+        <input type="text" id="gstNumber"  name="sellerGSTno" placeholder="29GGGGG1314R9Z6"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-400">Password</label>
+        <input type="password" id="password" name="sellerPassword" oninput="checkPassword()" required placeholder="******"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+        <p class="text-red-700 password-error"></p>
+      </div>
+
+      <div class="mb-4">
+        <label for="confirmPassword" class="block text-sm font-medium text-gray-400">Confirm Password</label>
+        <input type="password" id="confirmPassword" oninput="isPasswordMatch()" required
+          placeholder="******" name="confirmPassword"
+          class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
+        <p class="text-red-700 confirm-password-error"></p>
+      </div>
+
+      <div class="mb-6">
+        <button type="submit" id="submitBtn"
+          class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 hover:bg-blue-700 transition">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirmPassword");
+    const passwordError = document.querySelector(".password-error");
+    const confirmPasswordError = document.querySelector(
+      ".confirm-password-error"
+    );
+    const form = document.querySelector("form");
+    const submitBtn = document.getElementById("submitBtn");
+
+    let isValid = false;
+
+    function checkPassword() {
+      let errorMsg = "";
+
+      if (passwordInput.value.length > 0) {
+        if (passwordInput.value.length < 8) {
+          errorMsg = "password must be greater than 8 characters.<br/>";
+        }
+        if (!/[a-z]/.test(passwordInput.value)) {
+          errorMsg +=
+            "Password must contain at least one lowercase letter.<br>";
+        }
+        if (!/[A-Z]/.test(passwordInput.value)) {
+          errorMsg +=
+            "Password must contain at least one uppercase letter.<br>";
+        }
+        if (!/[0-9]/.test(passwordInput.value)) {
+          errorMsg += "Password must contain at least one number.<br>";
+        }
+        if (!/[!@#$%^&*]/.test(passwordInput.value)) {
+          errorMsg +=
+            "Password must contain at least one special character like !@#$%^&*.<br>";
+        }
+
+        passwordError.innerHTML = errorMsg;
+      }
+
+      if (!errorMsg) {
+        isValid = true;
+      }
+
+      return isValid;
+    }
+
+    function isPasswordMatch() {
+      isValid = checkPassword();
+      confirmPasswordError.innerHTML = "";
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        confirmPasswordError.innerHTML = "Passwords do not match";
+        isValid = false;
+      }
+
+      if (isValid) {
+        submitBtn.disabled = false;
+        submitBtn.style.cursor = "pointer";
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.style.cursor = "not-allowed";
+      }
+    }
+
+    form.addEventListener("submit", function (event) {
+      if (!isValid) {
+        event.preventDefault();
+        alert("Try again");
+      }
+    });
+  </script>
+</body>
+
+</html>
