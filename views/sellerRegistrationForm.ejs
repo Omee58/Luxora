@@ -8,8 +8,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-black text-white p-6 flex justify-center items-center min-h-screen">
+<body class="bg-black text-white p-6 flex flex-col justify-center items-center min-h-screen">
 
+  <% if (err) { %>
+    <div style="color: red; background-color: #f8d7da; padding: 10px; border-radius: 5px;">
+      <strong>Error:</strong> <%= err %>
+    </div>
+  <% } %>
 
   <div class="bg-black p-8 rounded-2xl shadow-xl w-full max-w-lg border-4 border-white">
     <h2 class="text-3xl font-bold text-center mb-6 text-white">
@@ -31,32 +36,32 @@
 
       <div class="mb-4">
         <label for="mobile" class="block text-sm font-medium text-gray-400">Mobile Number</label>
-        <input type="tel" minlength="10" maxlength="10" pattern="^\d{10}$" id="mobile"  name="sellerMobileNumber"
+        <input type="tel" minlength="10" maxlength="10" required pattern="^\d{10}$" id="mobile"  name="sellerMobileNumber"
           placeholder="+91 123 456 7890" oninput="this.value = this.value.replace(/\D/g, '')"
           class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
       </div>
 
       <div class="mb-4">
         <label for="dob" class="block text-sm font-medium text-gray-400">Date of Birth</label>
-        <input type="date" id="dob"  name="sellerDob"
+        <input type="date" id="dob"  max="2006-12-31"  name="sellerDob" required
           class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
       </div>
 
       <div class="mb-4">
         <label for="shopName" class="block text-sm font-medium text-gray-400">Shop Name</label>
-        <input type="text" id="shopName" name="shopName"  placeholder="Luxora enterprise"
+        <input type="text" id="shopName" name="shopName" required  placeholder="Luxora enterprise"
           class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
       </div>
 
       <div class="mb-4">
         <label for="shopAddress" class="block text-sm font-medium text-gray-400">Shop Address</label>
-        <textarea id="shopAddress" name="shopAddress"  placeholder="Enter your shop address"
+        <textarea id="shopAddress" name="shopAddress" required  placeholder="Enter your shop address"
           class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500"></textarea>
       </div>
 
       <div class="mb-4">
         <label for="gstNumber" class="block text-sm font-medium text-gray-400">GST Number</label>
-        <input type="text" id="gstNumber"  name="sellerGSTno" placeholder="29GGGGG1314R9Z6"
+        <input type="text" id="gstNumber" required  name="sellerGSTno" placeholder="29GGGGG1314R9Z6"
           class="mt-1 p-3 block w-full rounded-md border border-gray-600 bg-gray-800 text-white shadow-sm focus:ring-0 focus:border-blue-500" />
       </div>
 
@@ -83,6 +88,8 @@
       </div>
     </form>
   </div>
+  <p class="text-sm text-center mt-6 text-gray-400">Already have Account ? <a class="text-blue-500 hover:underline transition duration-200" href="/login">Login</a></p>
+
 
   <script>
     const passwordInput = document.getElementById("password");

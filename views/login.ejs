@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LUXORA - User Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+  </head>
+
+  <body class="bg-zinc-900 min-h-screen flex flex-col items-center justify-center gap-8 text-white font-sans">
+
+    <div class="text-xl font-medium text-center text-gray-400 mb-12">Login to your account</div>
+
+    <form action="/sellers/login" method="post" class="w-full max-w-md p-8 bg-zinc-800 rounded-lg shadow-xl">
+
+      <!-- Email Field -->
+      <div class="mb-6">
+        <label for="email" class="block text-lg font-medium text-gray-300">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email"
+          class="mt-2 p-4 block w-full rounded-lg border-2 border-transparent bg-gray-700 text-gray-300 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition duration-300" />
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-6 relative">
+        <label for="password" class="block text-lg font-medium text-gray-300">Password</label>
+        <input type="password" id="password" name="password" required placeholder="Enter your password"
+          class="mt-2 p-4 block w-full rounded-lg border-2 border-transparent bg-gray-700 text-gray-300 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition duration-300" />
+        
+        <button type="button" id="togglePassword" onclick="TogglePassword()" 
+          class="absolute   g-blue-600 right-4 transform -translate-y-10  text-gray-400 hover:text-gray-200">
+          <i id="toggleIcon" class="fas fa-eye-slash"></i> 
+        </button>
+      </div>
+
+      <!-- Forgot Password Link -->
+      <div class="flex justify-between items-center mb-6">
+        <div class="text-sm text-gray-400">
+          <a href="/updatePassword" class="text-blue-500 hover:underline transition duration-200">Forgot Password?</a>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="w-full px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300 transform hover:scale-105">
+        Login
+      </button>
+    </form>
+
+    <!-- Sign Up Link -->
+    <div class="text-sm text-center mt-6 text-gray-400">
+      Don't have an account? <a href="/sellers" class="text-blue-500 hover:underline transition duration-200">Sign Up</a>
+    </div>
+
+
+    <script>
+  
+      function TogglePassword(){
+        const toggleIcon = document.getElementById('toggleIcon');
+        const passwordField = document.getElementById('password');
+        if(passwordField.type == 'text'){
+          passwordField.type = 'password'
+          toggleIcon.classList.remove('fa-eye');
+          toggleIcon.classList.add('fa-eye-slash'); 
+        } else {
+          passwordField.type = 'text';
+          toggleIcon.classList.remove('fa-eye-slash');
+          toggleIcon.classList.add('fa-eye');
+        }
+      }
+    </script>
+  </body>
+</html>

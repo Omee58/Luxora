@@ -13,6 +13,14 @@ About sellers
     password
     confirm password
 
+products
+    images
+    title
+    description
+    price
+    discount
+
+
 orders
     products_details
     products_quantity
@@ -22,12 +30,6 @@ orders
     delivaery status
 
 
-products
-    images
-    title
-    description
-    price
-    discount
 
 ----------------------------------------------------------------
 2) users

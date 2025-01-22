@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
-
-const mongoDB =  mongoose.connect('mongodb://localhost:27017/Luxora', function(req, res){
+require('dotenv').config();
+// Connect to MongoDB
+mongoose.connect(process.env.DATABASE_URL)
+  .then(() => {
     console.log('Connected to MongoDB');
-})
+  })
+  .catch((err) => {
+    console.error('\n-------------------------\nFailed to connect to MongoDB, Error is :\n-------------------------\n', err);
+  });
 
-module.exports =  mongoDB;
+module.exports = mongoose;

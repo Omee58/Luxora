@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const sellers = require('./routers/sellersRoute');
-const port = 3030;
+const forgotPassword = require('./routers/updatePasswordRoute');
+require('dotenv').config();
+const port = process.env.PORT || 3030;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,9 +16,19 @@ app.get('/', (req, res) => {
 });
 
 app.use('/sellers', sellers);
+app.use('/updatePassword', forgotPassword);
 
 app.get('/customer', (req, res) => {
   res.send('You are in Customer Page, i will create it Soon ...');
+});
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+app.get('/logout', (req, res) => {
+  res.cookie('token', '');
+  res.redirect('/');
 });
 
 app.get('/owner', (req, res) => {
