@@ -99,6 +99,7 @@ function sendUpdatePasswordMail(seller) {
       if (error) {
         return res.status(500).send("Error sending OTP email.");
       }
+      console.log("Mail send successfully ...")
     });
   } catch (err) {
     console.error(err);

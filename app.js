@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/sellers', sellers);
+
 app.use('/updatePassword', forgotPassword);
 
 app.get('/customer', (req, res) => {

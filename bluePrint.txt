@@ -46,7 +46,6 @@ take rviews from users
 
 ----------------------------------------------------------------
 
-i am creating a ecommerce website, which contains ownres, sellers, customers. so give blue print 
 
 
 ////////////////////////////////

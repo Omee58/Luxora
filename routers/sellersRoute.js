@@ -15,7 +15,7 @@ router.get("/",  (req, res) => {
 });
 
 // info : when new sellers register, the data will be post here.
-router.post("/sellerRegistrationForm", controller.isUserExist,  controller.sendOTP, async (req, res) => {
+router.post("/sellerRegistrationForm", controller.isUserExist, controller.sendOTP, async (req, res) => {
   OTP = await req.otp;
   seller = await req.seller;
   date = await req.sendingDate;
